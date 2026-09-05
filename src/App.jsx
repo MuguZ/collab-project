@@ -26,7 +26,7 @@ export default function App() {
           />
         </section>
 
-        {/* Right Side: Live Preview (Sreema's ProfileHeader Component) */}
+        {/* Right Side: Live Preview (ProfileHeader Component) */}
         <section className="flex flex-col items-center justify-center p-8 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl shadow-2xl min-h-[440px] w-full">
           <div className="mb-6">
             <span className="text-xs uppercase tracking-widest font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
