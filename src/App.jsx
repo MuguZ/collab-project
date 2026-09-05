@@ -1,122 +1,56 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useProfileState } from "./hooks/useProfileState";
+import EditorPanel from "./components/EditorPanel";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { data, updateProfile, resetToDefault } = useProfileState();
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center py-12 px-4 selection:bg-indigo-500 selection:text-white">
+      <header className="mb-10 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          DevHub Generator
+        </h1>
+        <p className="text-sm text-zinc-400 mt-2">
+          Customize on the left — live preview updates in real time on the right
+        </p>
+      </header>
 
-      <div className="ticks"></div>
+      <main className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Left Side: Editor Form */}
+        <section className="flex justify-center w-full">
+          <EditorPanel
+            profile={data.profile}
+            onUpdateProfile={updateProfile}
+            onReset={resetToDefault}
+          />
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {/* Right Side: Live Preview Card */}
+        <section className="flex flex-col items-center justify-center p-8 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl shadow-2xl min-h-[440px] w-full">
+          <div className="mb-6">
+            <span className="text-xs uppercase tracking-widest font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
+              Live Preview
+            </span>
+          </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          <div className="flex flex-col items-center text-center p-6 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg w-full max-w-sm">
+            <img
+              src={data.profile.avatarUrl}
+              alt={data.profile.name}
+              className="w-24 h-24 rounded-full object-cover ring-4 ring-indigo-500/30 shadow-md mb-4 bg-zinc-800"
+            />
+            <h2 className="text-xl font-bold text-white tracking-tight">
+              {data.profile.name}
+            </h2>
+            <p className="text-sm text-indigo-400 font-medium mb-3">
+              {data.profile.handle}
+            </p>
+            <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
+              {data.profile.bio}
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
-
-export default App
