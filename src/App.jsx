@@ -1,5 +1,6 @@
 import { useProfileState } from "./hooks/useProfileState";
 import EditorPanel from "./components/EditorPanel";
+import ProfileHeader from "./components/ProfileHeader";
 
 export default function App() {
   const { data, updateProfile, resetToDefault } = useProfileState();
@@ -25,7 +26,7 @@ export default function App() {
           />
         </section>
 
-        {/* Right Side: Live Preview Card */}
+        {/* Right Side: Live Preview (ProfileHeader Component) */}
         <section className="flex flex-col items-center justify-center p-8 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl shadow-2xl min-h-[440px] w-full">
           <div className="mb-6">
             <span className="text-xs uppercase tracking-widest font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
@@ -33,22 +34,12 @@ export default function App() {
             </span>
           </div>
 
-          <div className="flex flex-col items-center text-center p-6 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg w-full max-w-sm">
-            <img
-              src={data.profile.avatarUrl}
-              alt={data.profile.name}
-              className="w-24 h-24 rounded-full object-cover ring-4 ring-indigo-500/30 shadow-md mb-4 bg-zinc-800"
-            />
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              {data.profile.name}
-            </h2>
-            <p className="text-sm text-indigo-400 font-medium mb-3">
-              {data.profile.handle}
-            </p>
-            <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
-              {data.profile.bio}
-            </p>
-          </div>
+          <ProfileHeader
+            name={data.profile.name}
+            handle={data.profile.handle}
+            bio={data.profile.bio}
+            avatarUrl={data.profile.avatarUrl}
+          />
         </section>
       </main>
     </div>
